@@ -9,6 +9,6 @@ function calcular() {
     elemento.innerText = disponible;
 
     let capacidadDePago = calcularCapacidadDePago(disponible);
-    const elementoA = document.getElementById("spnCapacidadPago");
-    elemento.innerText = capacidadDePago;
+    const CapacidadPago = document.getElementById("spnCapacidadPago");
+    CapacidadPago.innerText = capacidadDePago;
 }
