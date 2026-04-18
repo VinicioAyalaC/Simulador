@@ -1,0 +1,6 @@
+1.
+- actua como un diseñador profesional de interfaz grafica. - mejora la parte visual, con un aspecto profesional similar a un banco financiero. - no borres ni cambies los id en el html. - centrar responsive. - utiliza paleta de colores suaves entre blanco, gris, negro y rojo.
+
+2.
+Darle estilo tipo app móvil premium (como banco Pichincha o Produbanco).
+

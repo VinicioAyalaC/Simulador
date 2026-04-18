@@ -1,70 +1,170 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+/* RESET */
+* {
     margin: 0;
     padding: 0;
-}
-
-.container {
-    width: 400px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
     box-sizing: border-box;
 }
 
-p {
-    margin-top: 10px;
+/* BODY APP */
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(180deg, #f2f4f7, #e6e9ee);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-span {
-    font-weight: bold;
-    color: #2c3e50;
+/* TARJETA PRINCIPAL */
+.container {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
-.buttons {
+/* BARRA SUPERIOR (detalle premium) */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #c62828, #ff5252);
+}
+
+/* TITULO */
+h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+/* SECCIONES */
+h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #777;
     margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* LABELS */
+label {
+    display: block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* INPUTS PREMIUM */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    background: #f9fafb;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+input:focus {
+    border-color: #c62828;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+    outline: none;
+}
+
+/* RESULTADOS COMO TARJETAS */
+p {
+    margin-top: 12px;
+    font-size: 14px;
     display: flex;
     justify-content: space-between;
+    background: #f7f9fc;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #edf0f4;
 }
 
-button {
-    width: 48%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
+/* VALORES */
+span {
+    font-weight: 600;
+    color: #111;
+}
+
+/* ESTADO TIPO BADGE */
+#spnEstadoCredito {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e0e0e0;
+    color: #555;
+}
+
+/* BOTONES */
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* BOTON PRINCIPAL */
+#btnCalcularCredito {
+    background: linear-gradient(135deg, #c62828, #b71c1c);
     color: white;
-    font-weight: bold;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 
-button:hover {
-    background-color: #2980b9;
+/* BOTON SECUNDARIO */
+#btnReiniciar {
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* HOVER EFECTOS */
+#btnCalcularCredito:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(198, 40, 40, 0.3);
+}
+
+#btnReiniciar:hover {
+    background: #f1f1f1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .container {
+        margin: 10px;
+        border-radius: 15px;
+        padding: 20px;
+    }
 }
