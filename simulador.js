@@ -27,4 +27,9 @@ function calcular() {
     const totalCredito = document.getElementById("spnTotalPrestamo");
     totalCredito.innerText = totalPagarCredito.toFixed(2);
 
+
+    // total letra mensual
+    let cuotaLetraMensual = calcularCuotaMensual(totalPagarCredito, plazoAnios);
+    const letraMensual = document.getElementById("spnCuotaMensual");
+    letraMensual.innerText = cuotaLetraMensual.toFixed(2);
 }

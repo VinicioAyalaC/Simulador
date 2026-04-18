@@ -30,3 +30,10 @@ function calcularTotalPagar(montoSol,interesGen){
     let totalPagar = montoSol + interesGen + IMPUESTOS;
     return totalPagar;
 }
+
+
+function calcularCuotaMensual(total, plazoAnios){
+    //CALCULAR LA CUOTA MENSUAL
+    let cuotaMensual = total / (plazoAnios*12);
+    return cuotaMensual;
+}
