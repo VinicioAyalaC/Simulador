@@ -45,3 +45,21 @@ function calcular() {
     }
 
 }
+
+function reiniciarIngresos(){
+
+    //limpiar cajas de ingreso de valores
+    let cmpCajaIngreso = document.getElementById("txtIngresos").value=" ";
+    let cmpCajaEgreso = document.getElementById("txtEgresos").value=" ";
+    let cmpCajaMonto = document.getElementById("txtMonto").value=" ";
+    let cmpCajaPlazo = document.getElementById("txtPlazo").value=" ";
+    let cmpCajaTaza = document.getElementById("txtTasaInteres").value=" ";
+
+    //limpiar resultados
+    let txtDisponible = document.getElementById("spnDisponible").innerText=" ";
+    let txtCapacidad = document.getElementById("spnCapacidadPago").innerText=" ";
+    let txtInteres = document.getElementById("spnInteresPagar").innerText=" ";
+    let txtPrestamo = document.getElementById("spnTotalPrestamo").innerText=" ";
+    let txtCuota = document.getElementById("spnCuotaMensual").innerText=" ";
+    let txtEstado = document.getElementById("spnEstadoCredito").innerText="ANALIZANDO...";
+}

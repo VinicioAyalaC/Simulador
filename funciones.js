@@ -11,12 +11,10 @@ function calcularDisponible(ingresos, egresos){
     return disponible;
 }
 
-
 function calcularCapacidadDePago(montoDisponible){
     let capacidadDePago= montoDisponible/2;
     return capacidadDePago;
 }
-
 
 function calcularInteresSimple(monto,tasa,plazoAnios){
     //interes = plazo*monto*(tasa/100)
@@ -24,13 +22,11 @@ function calcularInteresSimple(monto,tasa,plazoAnios){
     return interes;
 }
 
-
 function calcularTotalPagar(montoSol,interesGen){
     //SUMAR MONTO SOLICITADO + INTERES + IMPUESTOS
     let totalPagar = montoSol + interesGen + IMPUESTOS;
     return totalPagar;
 }
-
 
 function calcularCuotaMensual(total, plazoAnios){
     //CALCULAR LA CUOTA MENSUAL
