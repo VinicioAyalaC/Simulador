@@ -45,3 +45,4 @@ function aprobarCredito(capacidadPago,cuotaMensual){
     return analisisCapacidad;
     
 }
+

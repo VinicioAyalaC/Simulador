@@ -1,65 +1,143 @@
 //AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML 
 
 function calcular() {
-    let ingresos = parseFloat(document.getElementById("txtIngresos").value);
-    let egresos = parseFloat(document.getElementById("txtEgresos").value);
+       // =========================
+    // FUNCIONES INTERNAS
+    // =========================
+    function mostrarError(idCampo, mensaje) {
+        let campo = document.getElementById(idCampo);
 
-    let disponible = calcularDisponible(ingresos, egresos);
-    const elemento = document.getElementById("spnDisponible");
-    elemento.innerText = disponible.toFixed(2);
+        // eliminar error previo
+        let errorExistente = document.getElementById(idCampo + "Error");
+        if (errorExistente) {
+            errorExistente.remove();
+        }
 
-    let capacidadDePago = calcularCapacidadDePago(disponible);
-    const CapacidadPago = document.getElementById("spnCapacidadPago");
-    CapacidadPago.innerText = capacidadDePago.toFixed(2);
+        let error = document.createElement("p");
+        error.id = idCampo + "Error";
+        error.style.color = "red";
+        error.style.fontSize = "12px";
+        error.innerText = mensaje;
 
-    // Solicitud de credito
-    let montoSolicitado = parseInt( document.getElementById("txtMonto").value);
-    let plazoAnios =  parseInt(document.getElementById("txtPlazo").value);
-    let tasaAnualSimple = parseInt(document.getElementById("txtTasaInteres").value);
-
-    let valorInteres =  calcularInteresSimple(montoSolicitado,tasaAnualSimple,plazoAnios);
-    const interesPagar = document.getElementById("spnInteresPagar");
-    interesPagar.innerText = valorInteres.toFixed(2);
-
-
-    // total a pagar del credito + intereses
-    let totalPagarCredito = calcularTotalPagar(montoSolicitado,valorInteres);
-    const totalCredito = document.getElementById("spnTotalPrestamo");
-    totalCredito.innerText = totalPagarCredito.toFixed(2);
-
-
-    // total letra mensual
-    let cuotaLetraMensual = calcularCuotaMensual(totalPagarCredito, plazoAnios);
-    const letraMensual = document.getElementById("spnCuotaMensual");
-    letraMensual.innerText = cuotaLetraMensual.toFixed(2);
-
-
-    // validar aprobacion del credito
-    let aprobacion = aprobarCredito(capacidadDePago,cuotaLetraMensual);
-    if (aprobacion==true){
-        const estado = document.getElementById("spnEstadoCredito");
-        estado.innerText = "CREDITO APROBADO";
-    } else{
-        const estado = document.getElementById("spnEstadoCredito");
-        estado.innerText = "CREDITO RECHAZADO";
+        campo.insertAdjacentElement("afterend", error);
     }
 
+    function limpiarErrores() {
+        let errores = document.querySelectorAll("p[id$='Error']");
+        errores.forEach(e => e.remove());
+    }
+
+    function esNumero(valor) {
+        return !isNaN(valor) && valor.trim() !== "";
+    }
+
+    // =========================
+    // INICIO VALIDACIONES
+    // =========================
+    limpiarErrores();
+    let hayErrores = false;
+
+    let ingresosTxt = document.getElementById("txtIngresos").value;
+    let egresosTxt = document.getElementById("txtEgresos").value;
+    let montoTxt = document.getElementById("txtMonto").value;
+    let plazoTxt = document.getElementById("txtPlazo").value;
+    let tasaTxt = document.getElementById("txtTasaInteres").value;
+
+    // SOLO NÚMEROS
+    if (!esNumero(ingresosTxt)) {
+        mostrarError("txtIngresos", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+    if (!esNumero(egresosTxt)) {
+        mostrarError("txtEgresos", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+    if (!esNumero(montoTxt)) {
+        mostrarError("txtMonto", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+    if (!esNumero(plazoTxt)) {
+        mostrarError("txtPlazo", "Ingrese un número válido");
+        hayErrores = true;
+    }
+
+    if (!esNumero(tasaTxt)) {
+        mostrarError("txtTasaInteres", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+    // VALIDACIONES ESPECÍFICAS
+    let plazo = parseInt(plazoTxt);
+    if (isNaN(plazo) || plazo <= 0 || plazo > 25 || !Number.isInteger(plazo)) {
+        mostrarError("txtPlazo", "Debe ser entero entre 1 y 25");
+        hayErrores = true;
+    }
+
+    let tasa = parseFloat(tasaTxt);
+    if (isNaN(tasa) || tasa < 0 || tasa > 50) {
+        mostrarError("txtTasaInteres", "Debe estar entre 0 y 50");
+        hayErrores = true;
+    }
+
+    // SI HAY ERRORES → DETENER
+    if (hayErrores) {
+        return;
+    }
+
+    // =========================
+    // LÓGICA ORIGINAL
+    // =========================
+    let ingresos = parseFloat(ingresosTxt);
+    let egresos = parseFloat(egresosTxt);
+
+    let disponible = calcularDisponible(ingresos, egresos);
+    document.getElementById("spnDisponible").innerText = disponible.toFixed(2);
+
+    let capacidadDePago = calcularCapacidadDePago(disponible);
+    document.getElementById("spnCapacidadPago").innerText = capacidadDePago.toFixed(2);
+
+    let montoSolicitado = parseFloat(montoTxt);
+    let plazoAnios = plazo;
+    let tasaAnualSimple = tasa;
+
+    let valorInteres = calcularInteresSimple(montoSolicitado, tasaAnualSimple, plazoAnios);
+    document.getElementById("spnInteresPagar").innerText = valorInteres.toFixed(2);
+
+    let totalPagarCredito = calcularTotalPagar(montoSolicitado, valorInteres);
+    document.getElementById("spnTotalPrestamo").innerText = totalPagarCredito.toFixed(2);
+
+    let cuotaLetraMensual = calcularCuotaMensual(totalPagarCredito, plazoAnios);
+    document.getElementById("spnCuotaMensual").innerText = cuotaLetraMensual.toFixed(2);
+
+    let aprobacion = aprobarCredito(capacidadDePago, cuotaLetraMensual);
+    document.getElementById("spnEstadoCredito").innerText =
+        aprobacion ? "CREDITO APROBADO" : "CREDITO RECHAZADO";
 }
 
+
 function reiniciarIngresos(){
+    
+    // ===== limpiar inputs (vacío real) =====
+    document.getElementById("txtIngresos").value = "";
+    document.getElementById("txtEgresos").value = "";
+    document.getElementById("txtMonto").value = "";
+    document.getElementById("txtPlazo").value = "";
+    document.getElementById("txtTasaInteres").value = "";
 
-    //limpiar cajas de ingreso de valores
-    let cmpCajaIngreso = document.getElementById("txtIngresos").value=" ";
-    let cmpCajaEgreso = document.getElementById("txtEgresos").value=" ";
-    let cmpCajaMonto = document.getElementById("txtMonto").value=" ";
-    let cmpCajaPlazo = document.getElementById("txtPlazo").value=" ";
-    let cmpCajaTaza = document.getElementById("txtTasaInteres").value=" ";
+    // ===== limpiar resultados =====
+    document.getElementById("spnDisponible").innerText = "";
+    document.getElementById("spnCapacidadPago").innerText = "";
+    document.getElementById("spnInteresPagar").innerText = "";
+    document.getElementById("spnTotalPrestamo").innerText = "";
+    document.getElementById("spnCuotaMensual").innerText = "";
 
-    //limpiar resultados
-    let txtDisponible = document.getElementById("spnDisponible").innerText=" ";
-    let txtCapacidad = document.getElementById("spnCapacidadPago").innerText=" ";
-    let txtInteres = document.getElementById("spnInteresPagar").innerText=" ";
-    let txtPrestamo = document.getElementById("spnTotalPrestamo").innerText=" ";
-    let txtCuota = document.getElementById("spnCuotaMensual").innerText=" ";
-    let txtEstado = document.getElementById("spnEstadoCredito").innerText="ANALIZANDO...";
+    // ===== restaurar estado inicial =====
+    document.getElementById("spnEstadoCredito").innerText = "ANALIZANDO...";
+
+    // ===== eliminar mensajes de error =====
+    let errores = document.querySelectorAll("p[id$='Error']");
+    errores.forEach(e => e.remove());
 }

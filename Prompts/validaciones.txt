@@ -1,0 +1,15 @@
+1.
+
+actúa como programador de javascrip, se necesita implementar validaciones en los formularios. considera las siguientes necesidades: - no modificar los id del html. - en los formularios validar que el usuario solo ingrese numeros y no texto. - el plazo debe ser numero entero mayor a 0 y menor o igual a 25. - la taza de interes debe ser mayor o igual a 0 y menor o igual a 50. - estas validaciones se ejecutarán una vez que presione el boton Calcular Credito y aparecerán los errores debajo de cada campo validado.
+
+
+
+2.
+
+entrega la funcion calcular con todo el codigo, incluyendo las validaciones
+
+
+
+3.
+
+modificar el codigo de la función reiniciarIngresos() para que el usuario vuelva a ingresar los valores como al inicio
