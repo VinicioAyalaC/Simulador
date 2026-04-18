@@ -32,4 +32,16 @@ function calcular() {
     let cuotaLetraMensual = calcularCuotaMensual(totalPagarCredito, plazoAnios);
     const letraMensual = document.getElementById("spnCuotaMensual");
     letraMensual.innerText = cuotaLetraMensual.toFixed(2);
+
+
+    // validar aprobacion del credito
+    let aprobacion = aprobarCredito(capacidadDePago,cuotaLetraMensual);
+    if (aprobacion==true){
+        const estado = document.getElementById("spnEstadoCredito");
+        estado.innerText = "CREDITO APROBADO";
+    } else{
+        const estado = document.getElementById("spnEstadoCredito");
+        estado.innerText = "CREDITO RECHAZADO";
+    }
+
 }
