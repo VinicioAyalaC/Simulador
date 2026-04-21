@@ -38,7 +38,10 @@ function calcular() {
     let hayErrores = false;
 
     let ingresosTxt = document.getElementById("txtIngresos").value;
-    let egresosTxt = document.getElementById("txtEgresos").value;
+    let arriendoTxt = document.getElementById("txtArriendo").value;
+    let alimentacionTxt = document.getElementById("txtAlimentacion").value;
+    let variosTxt = document.getElementById("txtVarios").value;
+
     let montoTxt = document.getElementById("txtMonto").value;
     let plazoTxt = document.getElementById("txtPlazo").value;
     let tasaTxt = document.getElementById("txtTasaInteres").value;
@@ -49,10 +52,22 @@ function calcular() {
         hayErrores = true;
     }
 
-    if (!esNumero(egresosTxt)) {
+    if (!esNumero(arriendoTxt)) {
         mostrarError("txtEgresos", "Ingrese solo números");
         hayErrores = true;
     }
+
+    if (!esNumero(alimentacionTxt)) {
+        mostrarError("txtEgresos", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+    if (!esNumero(variosTxt)) {
+        mostrarError("txtEgresos", "Ingrese solo números");
+        hayErrores = true;
+    }
+
+
 
     if (!esNumero(montoTxt)) {
         mostrarError("txtMonto", "Ingrese solo números");
@@ -91,7 +106,9 @@ function calcular() {
     // LÓGICA ORIGINAL
     // =========================
     let ingresos = parseFloat(ingresosTxt);
-    let egresos = parseFloat(egresosTxt);
+
+    let egresos = parseFloat(arriendoTxt) + parseFloat(alimentacionTxt) + parseFloat(variosTxt);
+    document.getElementById("spnGastos").innerText = egresos.toFixed(2);
 
     let disponible = calcularDisponible(ingresos, egresos);
     document.getElementById("spnDisponible").innerText = disponible.toFixed(2);
@@ -122,12 +139,16 @@ function reiniciarIngresos(){
     
     // ===== limpiar inputs (vacío real) =====
     document.getElementById("txtIngresos").value = "";
-    document.getElementById("txtEgresos").value = "";
+    document.getElementById("txtArriendo").value = "";
+    document.getElementById("txtAlimentacion").value = "";
+    document.getElementById("txtVarios").value = "";
+
     document.getElementById("txtMonto").value = "";
     document.getElementById("txtPlazo").value = "";
     document.getElementById("txtTasaInteres").value = "";
 
     // ===== limpiar resultados =====
+    document.getElementById("spnGastos").innerText = ""; 
     document.getElementById("spnDisponible").innerText = "";
     document.getElementById("spnCapacidadPago").innerText = "";
     document.getElementById("spnInteresPagar").innerText = "";
